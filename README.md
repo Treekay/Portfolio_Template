@@ -1,6 +1,7 @@
 # Profile Homepage Template
 
 A React + Vite personal homepage template for GitHub Pages.
+![Demo](public/profile-homepage-template.gif)
 
 ## Quick Start
 
