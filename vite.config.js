@@ -10,5 +10,5 @@ export default defineConfig({
       },
     }),
   ],
-  base: "/",
+  base: "/profile_homepage_template/",
 });
