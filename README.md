@@ -9,9 +9,8 @@ A React + Vite personal homepage template for GitHub Pages.
 3. Run `npm install`
 4. Edit files in `src/data/`
 5. Replace images in `public/`
-6. Open vite.config.js and update: `base: "/your-repository-name/",` or `/` if your site is deployed at `your-username.github.io`
-7. Push to GitHub
-8. In **Settings → Pages**, choose **GitHub Actions**
+6. Push to GitHub
+7. In **Settings → Pages**, choose **GitHub Actions**
 
 After deployment, your site will be available at: https://your-username.github.io/your-repository-name/
 
@@ -35,3 +34,4 @@ Put your images in `public/`, for example:
 ```bash
 npm install
 npm run dev
+```
