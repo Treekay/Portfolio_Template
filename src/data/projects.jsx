@@ -25,6 +25,7 @@ const projects = [
     image: "/project2.jpg",
     buttonText: "More",
     buttonLink: "https://project2.example.com",
+    nextSectionId: "skills", //the last project should link to the skills section
   },
 ];
 

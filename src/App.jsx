@@ -12,11 +12,11 @@ function App() {
         heroName={profile.name}
         description={profile.description}
         backgroundImage="/bg.jpg"
-        nextSectionId="projects"
+        nextSectionId="project-1"
         typingSpeed={35}
       />
       <ProjectPage />
-      <SkillSection categories={skillCategories} />
+      <SkillSection categories={skillCategories} id="skills" />
       <Footer />
     </>
   );
