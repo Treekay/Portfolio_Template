@@ -1,2 +1,8 @@
-# profile_builder
-A tool used to quickly generate a personal profile website which can be run on github pages, and also provide a simple interface for users to customize the content and style of the website.
+## Quick Start
+
+1. Use this template
+2. Run `npm install`
+3. Edit files in `src/data/`
+4. Replace images in `public/`
+5. Push to GitHub
+6. Enable GitHub Pages with GitHub Actions
