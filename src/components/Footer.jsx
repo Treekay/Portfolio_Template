@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-inner">
-        {/* left icon */}
+        {/* 左侧图标 */}
         <div className="footer-icon">
           <FaCode />
         </div>

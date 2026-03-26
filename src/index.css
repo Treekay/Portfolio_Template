@@ -16,3 +16,16 @@ body {
   background: var(--bg);
   overflow-x: hidden;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+section {
+  width: 100%;
+}

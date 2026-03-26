@@ -16,7 +16,7 @@ function App() {
         typingSpeed={35}
       />
       <ProjectPage />
-      <SkillSection categories={skillCategories} id="skills" />
+      <SkillSection categories={skillCategories} id={"skills"} />
       <Footer />
     </>
   );

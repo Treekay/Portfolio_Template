@@ -11,6 +11,7 @@ const ProjectSection = ({
   image,
   buttonText = "More",
   buttonLink = "#",
+  prevSectionId,
   nextSectionId,
   index = 0,
 }) => {
@@ -30,53 +31,43 @@ const ProjectSection = ({
         const color = await fac.getColorAsync(img);
         const [r, g, b] = color.value;
 
-        // calc brightness
         const brightness = 0.299 * r + 0.587 * g + 0.114 * b;
 
         let baseR = r;
         let baseG = g;
         let baseB = b;
 
-        // if too bright, darken it to ensure text contrast
         if (brightness > 200) {
-          const factor = 0.6;
-          baseR = r * factor;
-          baseG = g * factor;
-          baseB = b * factor;
+          baseR = Math.round(r * 0.6);
+          baseG = Math.round(g * 0.6);
+          baseB = Math.round(b * 0.6);
         }
 
-        // ensure minimum darkness for better contrast
-        const minDark = 40;
-        baseR = Math.max(baseR, minDark);
-        baseG = Math.max(baseG, minDark);
-        baseB = Math.max(baseB, minDark);
-
-        // create a gradient with the base color
-        const darkColor = `rgb(${baseR * 0.7}, ${baseG * 0.7}, ${baseB * 0.7})`;
-        const lightColor = `rgb(${baseR * 1.1}, ${baseG * 1.1}, ${baseB * 1.1})`;
+        const darkColor = `rgb(${Math.max(baseR - 35, 0)}, ${Math.max(
+          baseG - 35,
+          0
+        )}, ${Math.max(baseB - 35, 0)})`;
+        const lightColor = `rgb(${Math.min(baseR + 20, 255)}, ${Math.min(
+          baseG + 20,
+          255
+        )}, ${Math.min(baseB + 20, 255)})`;
 
         setBgStyle({
-          background: `linear-gradient(120deg, ${darkColor}, ${lightColor})`,
+          background: `linear-gradient(120deg, ${darkColor} 0%, ${lightColor} 100%)`,
         });
       } catch (error) {
-        console.error("failed to get color:", error);
+        console.error("提取图片主色失败：", error);
       }
     };
 
-    img.onerror = (error) => {
-      console.error("failed to load image:", error);
-    };
-
-    return () => {
-      fac.destroy();
-    };
+    return () => fac.destroy();
   }, [image]);
 
-  const handleScrollDown = () => {
-    if (!nextSectionId) return;
-    const nextSection = document.getElementById(nextSectionId);
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: "smooth" });
+  const handleScrollTo = (sectionId) => {
+    if (!sectionId) return;
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -85,7 +76,7 @@ const ProjectSection = ({
   return (
     <section className="project-section" id={id} style={bgStyle}>
       <div className={`project-inner ${isReverse ? "reverse" : ""}`}>
-        <div className="project-left">
+        <div className="project-info">
           <h2 className="project-title">{title}</h2>
 
           <div className="project-meta">
@@ -117,19 +108,33 @@ const ProjectSection = ({
           </a>
         </div>
 
-        <div className="project-right">
+        <div className="project-media">
           <img src={image} alt={title} className="project-image" />
         </div>
       </div>
 
-      {nextSectionId && (
-        <button
-          className="project-scroll-down-btn"
-          onClick={handleScrollDown}
-          aria-label="Scroll to next section"
-        >
-          <span className="project-arrow">↓</span>
-        </button>
+      {(prevSectionId || nextSectionId) && (
+        <div className="project-nav">
+          {prevSectionId && (
+            <button
+              className="project-nav-btn"
+              onClick={() => handleScrollTo(prevSectionId)}
+              aria-label="Previous project"
+            >
+              <span className="project-nav-arrow">↑</span>
+            </button>
+          )}
+
+          {nextSectionId && (
+            <button
+              className="project-nav-btn"
+              onClick={() => handleScrollTo(nextSectionId)}
+              aria-label="Next project"
+            >
+              <span className="project-nav-arrow">↓</span>
+            </button>
+          )}
+        </div>
       )}
     </section>
   );

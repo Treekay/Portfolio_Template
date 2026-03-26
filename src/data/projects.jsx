@@ -11,7 +11,6 @@ const projects = [
     image: "/project1.jpg",
     buttonText: "More",
     buttonLink: "https://project1.example.com",
-    nextSectionId: "project-2",
   },
   {
     id: "project-2",
@@ -25,7 +24,6 @@ const projects = [
     image: "/project2.jpg",
     buttonText: "More",
     buttonLink: "https://project2.example.com",
-    nextSectionId: "skills", //the last project should link to the skills section
   },
 ];
 

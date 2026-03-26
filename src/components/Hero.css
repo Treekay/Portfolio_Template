@@ -76,9 +76,7 @@
   justify-content: center;
   align-items: center;
 
-  transition:
-    transform 0.2s ease,
-    background 0.2s ease;
+  transition: transform 0.2s ease, background 0.2s ease;
   backdrop-filter: blur(4px);
 }
 
@@ -90,4 +88,24 @@
 .arrow {
   font-size: 30px;
   line-height: 1;
+}
+
+@media (max-width: 768px) {
+  .hero-name {
+    font-size: clamp(32px, 8vw, 48px);
+  }
+
+  .hero-desc {
+    font-size: clamp(16px, 4vw, 20px);
+    line-height: 1.6;
+  }
+
+  .content {
+    padding: 0 20px;
+  }
+
+  .scroll-down-btn {
+    width: 52px;
+    height: 52px;
+  }
 }
