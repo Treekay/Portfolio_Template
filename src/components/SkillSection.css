@@ -38,12 +38,30 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  width: 100%;
 }
 
 .skill-circle-wrapper {
   position: relative;
   width: 128px;
   height: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skill-circle-name {
+  margin-top: 14px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+  line-height: 1.3;
+  min-height: 2.6em;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .skill-circle {
@@ -71,14 +89,6 @@
   font-size: 18px;
   font-weight: 500;
   color: #343434;
-}
-
-.skill-circle-name {
-  margin-top: 18px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #222;
-  text-align: center;
 }
 
 @media (max-width: 900px) {
@@ -109,15 +119,17 @@
   }
 
   .skill-circle-wrapper {
-    width: 100px;
-    height: 100px;
-  }
-
-  .skill-circle-text {
-    font-size: 16px;
+    width: 108px;
+    height: 108px;
   }
 
   .skill-circle-name {
+    margin-top: 12px;
+    font-size: 16px;
+    min-height: 2.4em;
+  }
+
+  .skill-circle-text {
     font-size: 16px;
   }
 }

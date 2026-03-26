@@ -11,23 +11,29 @@
 }
 
 .project-inner {
-  width: min(1250px, 100%);
+  width: min(1350px, 90%);
   display: grid;
   grid-template-columns: minmax(520px, 1.15fr) minmax(360px, 0.95fr);
   align-items: center;
-  gap: 60px;
+  gap: 0px;
 }
 
 .project-inner.reverse {
   grid-template-columns: minmax(360px, 0.95fr) minmax(520px, 1.15fr);
 }
 
-.project-media,
-.project-info {
-  min-width: 0;
+.project-image {
+  display: block;
+  max-width: min(42vw, 480px);
+  max-height: 68vh;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.24);
 }
 
 .project-media {
+  min-width: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,6 +42,7 @@
 
 .project-info {
   color: #fff;
+  min-width: 0;
   max-width: 1400px;
   /* display: flex; */
   flex-direction: column;
@@ -107,48 +114,44 @@
   transform: translateY(-1px);
 }
 
-.project-image {
-  display: block;
-  max-width: min(42vw, 480px);
-  max-height: 68vh;
-  width: auto;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.24);
-}
-
 .project-nav {
   position: absolute;
   left: 50%;
   bottom: 36px;
   transform: translateX(-50%);
   display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 16px;
 }
 
 .project-nav-btn {
-  width: 58px;
-  height: 58px;
-  border: none;
+  width: 56px;
+  height: 56px;
+  min-width: 56px;
+  min-height: 56px;
+  flex: 0 0 56px;
   border-radius: 50%;
+  border: none;
   background: rgba(110, 105, 101, 0.55);
   color: #fff;
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease, background 0.2s ease;
-  backdrop-filter: blur(4px);
+  padding: 0;
+  line-height: 1;
+  box-sizing: border-box;
+}
+
+.project-nav-arrow {
+  font-size: 24px;
+  line-height: 1;
 }
 
 .project-nav-btn:hover {
   transform: translateY(2px);
   background: rgba(90, 85, 80, 0.68);
-}
-
-.project-nav-arrow {
-  font-size: 28px;
-  line-height: 1;
 }
 
 @media (max-width: 1200px) {
@@ -253,8 +256,11 @@
   }
 
   .project-nav-btn {
-    width: 52px;
-    height: 52px;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    flex: 0 0 50px;
   }
 
   .project-nav-arrow {
