@@ -1,7 +1,7 @@
 # Profile Homepage Template
 
 A React + Vite personal homepage template for GitHub Pages.
-![Demo](public/profile-homepage-template.gif)
+![Demo](public/template-preview.svg)
 
 ## Quick Start
 
@@ -11,23 +11,23 @@ A React + Vite personal homepage template for GitHub Pages.
 4. Edit files in `src/data/`
 5. Replace images in `public/`
 6. Push to GitHub
-7. In **Settings → Pages**, choose **GitHub Actions**
+7. In **Settings > Pages**, choose **GitHub Actions**
 
 After deployment, your site will be available at: https://your-username.github.io/your-repository-name/
 
 ## Editable files
 
-- `src/data/site.js`
-- `src/data/projects.js`
-- `src/data/skills.js`
-- `src/data/contacts.js`
+- `src/data/profile.jsx`
+- `src/data/aboutMe.jsx`
+- `src/data/projects.jsx`
+- `src/data/skills.jsx`
 
 ## Images
 
 Put your images in `public/`, for example:
 
-- `public/bg.jpg`
-- `public/avatar.jpg`
+- `public/bg.svg`
+- `public/avatar.svg`
 - `public/projects/project1.jpg`
 
 ## Local development

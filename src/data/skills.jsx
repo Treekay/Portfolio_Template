@@ -1,26 +1,52 @@
 const skillCategories = [
   {
-    title: "Programming Languages",
+    title: "Languages",
     skills: [
-      { name: "Java", value: 90 },
-      { name: "C++", value: 80 },
-      { name: "Python", value: 70 },
+      { name: "JavaScript" },
+      { name: "TypeScript" },
+      { name: "Python" },
+      { name: "SQL" },
     ],
   },
   {
-    title: "Web",
+    title: "Frontend",
     skills: [
-      { name: "MySQL", value: 80 },
-      { name: "Spring", value: 80 },
-      { name: "JavaScript", value: 70 },
+      { name: "HTML" },
+      { name: "CSS" },
+      { name: "React" },
+      { name: "Vite" },
+      { name: "Responsive UI" },
     ],
   },
   {
-    title: "Tools & Platforms",
+    title: "Backend",
     skills: [
-      { name: "Git", value: 80 },
-      { name: "Docker", value: 90 },
-      { name: "Linux", value: 70 },
+      { name: "Node.js" },
+      { name: "Express" },
+      { name: "REST APIs" },
+      { name: "Authentication" },
+    ],
+  },
+  {
+    title: "Database",
+    skills: [{ name: "PostgreSQL" }, { name: "MongoDB" }, { name: "SQLite" }],
+  },
+  {
+    title: "Tools & DevOps",
+    skills: [
+      { name: "Git" },
+      { name: "GitHub Actions" },
+      { name: "Docker" },
+      { name: "Cloud Hosting" },
+    ],
+  },
+  {
+    title: "Workflow",
+    skills: [
+      { name: "Testing" },
+      { name: "Documentation" },
+      { name: "Product Thinking" },
+      { name: "Collaboration" },
     ],
   },
 ];

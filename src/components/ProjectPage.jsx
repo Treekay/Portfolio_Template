@@ -9,7 +9,7 @@ const ProjectsPage = () => {
           key={project.id}
           {...project}
           index={index}
-          prevSectionId={index > 0 ? projects[index - 1].id : "hero"}
+          prevSectionId={index > 0 ? projects[index - 1].id : "more-about"}
           nextSectionId={
             index < projects.length - 1 ? projects[index + 1].id : "skills"
           }

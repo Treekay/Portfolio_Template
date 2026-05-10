@@ -1,12 +1,12 @@
 const profile = {
-  name: "AName ALastName",
-  description: "Work Experience, Personal Projects, and more.",
-  city: "New York, America",
-  address: "123 Main Street, New York, NY 10001",
-  phone: "(+1) 555-1234",
-  email: "ANameALastName@example.com",
-  github: "https://github.com/ANameALastName",
-  linkedin: "https://linkedin.com/in/ANameALastName",
+  name: "Your Name",
+  description: "A short introduction about your work, projects, and interests.",
+  city: "Your City, Country",
+  address: "Your preferred location or remote-friendly note",
+  phone: "+1 000 000 0000",
+  email: "you@example.com",
+  github: "https://github.com/your-username",
+  linkedin: "https://linkedin.com/in/your-profile",
 };
 
 export default profile;

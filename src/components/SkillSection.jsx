@@ -1,73 +1,80 @@
 import "./SkillSection.css";
+import { motion } from "framer-motion";
+import SectionNav from "./SectionNav";
 
-const SkillCircle = ({ name, value }) => {
-  const radius = 64;
-  const stroke = 8;
-  const normalizedRadius = radius - stroke / 2;
-  const circumference = 2 * Math.PI * normalizedRadius;
-  const progress = Math.max(0, Math.min(100, value));
-  const strokeDashoffset = circumference - (progress / 100) * circumference;
+const MotionDiv = motion.div;
+const MotionH2 = motion.h2;
 
+const SkillTag = ({ name, index }) => {
   return (
-    <div className="skill-circle-card">
-      <div className="skill-circle-wrapper">
-        <svg
-          className="skill-circle"
-          width={radius * 2}
-          height={radius * 2}
-          viewBox={`0 0 ${radius * 2} ${radius * 2}`}
-        >
-          <circle
-            className="skill-circle-bg"
-            strokeWidth={stroke}
-            r={normalizedRadius}
-            cx={radius}
-            cy={radius}
-            fill="transparent"
-          />
-          <circle
-            className="skill-circle-progress"
-            strokeWidth={stroke}
-            strokeDasharray={`${circumference} ${circumference}`}
-            style={{ strokeDashoffset }}
-            r={normalizedRadius}
-            cx={radius}
-            cy={radius}
-            fill="transparent"
-          />
-        </svg>
-
-        <div className="skill-circle-text">{progress}%</div>
-      </div>
-
-      <div className="skill-circle-name">{name}</div>
-    </div>
+    <MotionDiv
+      className="skill-tag"
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.45 }}
+      transition={{
+        duration: 0.38,
+        delay: Math.min(index * 0.035, 0.18),
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      whileHover={{ y: -3 }}
+    >
+      <span className="skill-tag-dot" />
+      <span>{name}</span>
+    </MotionDiv>
   );
 };
 
-const SkillsSection = ({ categories }) => {
+const SkillsSection = ({ categories, id = "skills", prevSectionId, nextSectionId }) => {
   return (
-    <section className="skills-section" id="skills">
-      {categories.map((category, index) => (
-        <div
-          key={category.title}
-          className={`skills-row ${index % 2 === 1 ? "skills-row-alt" : ""}`}
+    <section className="skills-section" id={id}>
+      <div className="skills-shell">
+        <MotionH2
+          className="skills-section-title"
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="skills-row-inner">
-            <h2 className="skills-row-title">{category.title}</h2>
+          Skills & Tools
+        </MotionH2>
 
-            <div className="skills-grid">
-              {category.skills.map((skill) => (
-                <SkillCircle
-                  key={skill.name}
-                  name={skill.name}
-                  value={skill.value}
-                />
-              ))}
-            </div>
-          </div>
+        <div className="skills-list">
+          {categories.map((category, categoryIndex) => (
+            <MotionDiv
+              key={category.title}
+              className="skills-row"
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.35 }}
+              transition={{
+                duration: 0.5,
+                delay: categoryIndex * 0.06,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <div className="skills-row-heading">
+                <span className="skills-row-index">
+                  {String(categoryIndex + 1).padStart(2, "0")}
+                </span>
+                <h3>{category.title}</h3>
+              </div>
+
+              <div className="skills-tags">
+                {category.skills.map((skill, index) => (
+                  <SkillTag key={skill.name} name={skill.name} index={index} />
+                ))}
+              </div>
+            </MotionDiv>
+          ))}
         </div>
-      ))}
+      </div>
+      <SectionNav
+        prevSectionId={prevSectionId}
+        nextSectionId={nextSectionId}
+        previousLabel="Previous section before skills"
+        nextLabel="Next section after skills"
+      />
     </section>
   );
 };

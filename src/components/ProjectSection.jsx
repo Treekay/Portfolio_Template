@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FastAverageColor } from "fast-average-color";
+import { motion, useScroll, useTransform } from "framer-motion";
 import "./ProjectSection.css";
+import SectionNav from "./SectionNav";
+
+const MotionDiv = motion.div;
 
 const ProjectSection = ({
   id,
   title,
   period,
   organization,
+  techStack = [],
   description,
   image,
   buttonText = "More",
@@ -15,9 +20,17 @@ const ProjectSection = ({
   nextSectionId,
   index = 0,
 }) => {
+  const sectionRef = useRef(null);
   const [bgStyle, setBgStyle] = useState({
-    background: "linear-gradient(120deg, #a9a198 0%, #d8d0c5 100%)",
+    "--project-start": "#08121d",
+    "--project-end": "#112430",
   });
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], [70, -70]);
+  const railScale = useTransform(scrollYProgress, [0.18, 0.78], [0, 1]);
 
   useEffect(() => {
     const fac = new FastAverageColor();
@@ -30,53 +43,46 @@ const ProjectSection = ({
       try {
         const color = await fac.getColorAsync(img);
         const [r, g, b] = color.value;
-
         const brightness = 0.299 * r + 0.587 * g + 0.114 * b;
-
-        let baseR = r;
-        let baseG = g;
-        let baseB = b;
-
-        if (brightness > 200) {
-          baseR = Math.round(r * 0.6);
-          baseG = Math.round(g * 0.6);
-          baseB = Math.round(b * 0.6);
-        }
-
-        const darkColor = `rgb(${Math.max(baseR - 35, 0)}, ${Math.max(
-          baseG - 35,
-          0
-        )}, ${Math.max(baseB - 35, 0)})`;
-        const lightColor = `rgb(${Math.min(baseR + 20, 255)}, ${Math.min(
-          baseG + 20,
-          255
-        )}, ${Math.min(baseB + 20, 255)})`;
+        const shade = brightness > 200 ? 0.52 : 0.72;
+        const baseR = Math.round(r * shade);
+        const baseG = Math.round(g * shade);
+        const baseB = Math.round(b * shade);
 
         setBgStyle({
-          background: `linear-gradient(120deg, ${darkColor} 0%, ${lightColor} 100%)`,
+          "--project-start": `rgb(${Math.max(baseR - 80, 0)}, ${Math.max(
+            baseG - 80,
+            0,
+          )}, ${Math.max(baseB - 80, 0)})`,
+          "--project-end": `rgb(${Math.min(baseR + 12, 210)}, ${Math.min(
+            baseG + 12,
+            210,
+          )}, ${Math.min(baseB + 12, 210)})`,
         });
       } catch (error) {
-        console.error("提取图片主色失败：", error);
+        console.error("Failed to extract image color:", error);
       }
     };
 
     return () => fac.destroy();
   }, [image]);
 
-  const handleScrollTo = (sectionId) => {
-    if (!sectionId) return;
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   const isReverse = index % 2 === 1;
 
   return (
-    <section className="project-section" id={id} style={bgStyle}>
+    <section className="project-section" id={id} style={bgStyle} ref={sectionRef}>
+      <div className="project-atmosphere" />
+      <MotionDiv className="project-rail" style={{ scaleY: railScale }} />
+
       <div className={`project-inner ${isReverse ? "reverse" : ""}`}>
-        <div className="project-info">
+        <MotionDiv
+          className="project-info"
+          initial={{ opacity: 0, x: isReverse ? 56 : -56 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.38 }}
+          transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <span className="project-index">{String(index + 1).padStart(2, "0")}</span>
           <h2 className="project-title">{title}</h2>
 
           <div className="project-meta">
@@ -85,6 +91,16 @@ const ProjectSection = ({
               <p className="project-organization">{organization}</p>
             )}
           </div>
+
+          {techStack.length > 0 && (
+            <div className="project-tech-stack" aria-label={`${title} tech stack`}>
+              {techStack.map((tech) => (
+                <span className="project-tech-chip" key={tech}>
+                  {tech}
+                </span>
+              ))}
+            </div>
+          )}
 
           <div className="project-description">
             {Array.isArray(description) ? (
@@ -99,43 +115,33 @@ const ProjectSection = ({
           </div>
 
           <a
-            className="project-button"
+            className={`project-button ${isReverse ? "btn-right" : ""}`}
             href={buttonLink}
             target={buttonLink.startsWith("http") ? "_blank" : "_self"}
             rel={buttonLink.startsWith("http") ? "noreferrer" : undefined}
           >
             {buttonText}
           </a>
-        </div>
+        </MotionDiv>
 
-        <div className="project-media">
+        <MotionDiv
+          className="project-media"
+          style={{ y: imageY }}
+          initial={{ opacity: 0, scale: 0.94, rotate: isReverse ? -2 : 2 }}
+          whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+          viewport={{ once: true, amount: 0.36 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        >
           <img src={image} alt={title} className="project-image" />
-        </div>
+        </MotionDiv>
       </div>
 
-      {(prevSectionId || nextSectionId) && (
-        <div className="project-nav">
-          {prevSectionId && (
-            <button
-              className="project-nav-btn"
-              onClick={() => handleScrollTo(prevSectionId)}
-              aria-label="Previous project"
-            >
-              <span className="project-nav-arrow">↑</span>
-            </button>
-          )}
-
-          {nextSectionId && (
-            <button
-              className="project-nav-btn"
-              onClick={() => handleScrollTo(nextSectionId)}
-              aria-label="Next project"
-            >
-              <span className="project-nav-arrow">↓</span>
-            </button>
-          )}
-        </div>
-      )}
+      <SectionNav
+        prevSectionId={prevSectionId}
+        nextSectionId={nextSectionId}
+        previousLabel={`Previous section before ${title}`}
+        nextLabel={`Next section after ${title}`}
+      />
     </section>
   );
 };
