@@ -1,4 +1,4 @@
-# Profile Homepage Template
+# Portfolio Template
 
 A React + Vite personal homepage template for GitHub Pages.
 ![Demo](public/Portfolio.gif)
